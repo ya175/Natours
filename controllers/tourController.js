@@ -96,6 +96,8 @@ exports.deleteTour = async (req, res) => {
   }
 };
 
+///hekko git
+
 // exports.checkID = (req, res, next, val) => {
 //console.log(`id is ${val}`);
 // if (id > tours.length) {
