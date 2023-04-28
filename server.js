@@ -1,9 +1,15 @@
 const dotenv = require('dotenv');
-
-const app = require('./app');
 const mongoose = require('mongoose');
 
+process.on('uncaughtException', err => {
+  console.log("un caught exception'✨✨ shuting down....");
+  console.log(err.name, err.message);
+  //  console.log(err);
+  process.exit(1);
+});
+
 dotenv.config({ path: './config.env' });
+const app = require('./app');
 //const PASS=q@ii6$_w_g#i.tU;
 
 // 'mongodb+srv://yassmine:q@ii6$_w_g#i.tU@cluster0.cyjnwrg.mongodb.net/natours?retryWrites=true&w=majority,ssl=false';
@@ -83,6 +89,16 @@ console.log(dbstr);
 //start the server
 const port = 3000;
 //const port = process.env.PORT || 3000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`app is listening on port${port}...`);
+});
+
+process.on('unhandledRejection', err => {
+  console.log("unhandled rejection'✨✨ shuting down....");
+  console.log(err.name, err.message);
+  // console.log(err.name, err.message);
+
+  server.close(() => {
+    process.exit(1);
+  });
 });

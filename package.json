@@ -5,16 +5,30 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon server.js",
-    "start:prod": "NODE_ENV=production nodemon server.js"
+    "start:prod": "NODE_ENV=production nodemon server.js",
+    "debug": "ndb server.js"
   },
   "author": "yassmine",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^6.7.0",
+    "helmet": "^6.0.1",
+    "hpp": "^0.2.3",
+    "html-to-text": "^9.0.4",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.13.15",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.20"
+    "nodemailer": "^6.9.1",
+    "nodemon": "^2.0.20",
+    "pug": "^3.0.2",
+    "slugify": "^1.6.5",
+    "validator": "^13.9.0",
+    "xss-clean": "^0.1.1"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
@@ -29,5 +43,14 @@
   },
   "engines": {
     "node": ">=10.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ya175/natours.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/ya175/natours/issues"
+  },
+  "homepage": "https://github.com/ya175/natours#readme"
 }
