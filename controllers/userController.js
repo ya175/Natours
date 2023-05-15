@@ -1,6 +1,7 @@
 const AppError = require('../utils/appError');
 const User = require('./../models/userModel');
 const catchAsync = require('./../utils/catchAsync');
+const factory = require('./handlerFactory');
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -29,50 +30,52 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
-  const user = await User.findByIdAndUpdate(req.user.id, { active: false });
+  await User.findByIdAndUpdate(req.user.id, { active: false });
   res.status(204).json({
     status: 'success',
     data: null
   });
 });
-exports.getAllUsres = catchAsync(async (req, res, next) => {
-  const users = await User.find();
-
-  res.status(200).json({
-    //500 internal server eror
-    status: 'success',
-    message: ' implemented ',
-    data: users
-  });
-});
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    //500 internal server eror
-    status: 'error',
-    message: 'not implemented yet'
-  });
+exports.getMe = (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
 };
+exports.updateUser = factory.updateOne(User);
+exports.getUser = factory.getOne(User);
+exports.getAllUsres = factory.getAll(User);
+exports.deleteUser = factory.deleteOne(User);
 
 exports.createUser = (req, res) => {
   res.status(500).json({
     //500 internal server eror
     status: 'error',
-    message: 'not implemented yet'
+    message: 'thisroute is not defined ,please use /signup instead.'
   });
 };
 
-exports.updateUser = (req, res) => {
-  res.status(500).json({
-    //500 internal server eror
-    status: 'error',
-    message: 'not implemented yet'
-  });
-};
+// exports.getAllUsres = catchAsync(async (req, res, next) => {
+//   const users = await User.find();
 
-exports.deleteUser = (req, res) => {
-  res.status(500).json({
-    //500 internal server eror
-    status: 'error',
-    message: 'not implemented yet'
-  });
-};
+//   res.status(200).json({
+//     //500 internal server eror
+//     status: 'success',
+//     results: users.length,
+//     message: ' implemented ',
+//     data: users
+//   });
+// });
+// exports.updateUser = (req, res) => {
+//   res.status(500).json({
+//     //500 internal server eror
+//     status: 'error',
+//     message: 'not implemented yet'
+//   });
+// };
+
+// exports.deleteUser = (req, res) => {
+//   res.status(500).json({
+//     //500 internal server eror
+//     status: 'error',
+//     message: 'not implemented yet'
+//   });
+// };

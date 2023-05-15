@@ -5,13 +5,13 @@ const helmet = require('helmet');
 const expressMongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
-const ExpressMongoSanitize = require('express-mongo-sanitize');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+
 const app = express();
 // app.get('/', (req, res) => {
 //   res.status(200).json({ message: 'hellow express', app: 'natours' });

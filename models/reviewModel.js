@@ -21,7 +21,7 @@ const reviewSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
-      required: [true, 'review must has an author']
+      required: [true, 'review must have an author']
     },
     tour: {
       type: mongoose.Schema.ObjectId,
