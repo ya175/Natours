@@ -1,13 +1,20 @@
 const express = require('express');
 const tourController = require('./../controllers/tourController');
+
 const authController = require('./../controllers/authController');
 
 const reviewRouter = require('./reviewRoutes');
 
 const router = express.Router();
+router.route('/distances/:latlng/unit/:unit').get(tourController.getDistances);
+
+router
+  .route('/tours-withen/:distance/center/:latlng/unit/:unit')
+  .get(tourController.getToursWithen);
 
 //router.param('id', tourController.checkID);
-//routes
+// ro utes
+
 router.use('/:tourId/reviews', reviewRouter); //wheereever you see '/:tourId/reviews' use reviewRouter instead
 
 // router

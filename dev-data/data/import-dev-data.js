@@ -15,31 +15,49 @@ const dbstr = `${process.env.DATABASE}`.replace(
   `<PASSWORD>`,
   `${process.env.DATABASE_PASSWORD}`
 );
-mongoose
-  .connect(dbstr, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-  })
-  .then(con => {
-    console.log(con.conections);
-    console.log('connections succifuly created');
-  });
+
+//  mongoose
+//   .connect(dbstr, {
+//     useNewUrlParser: true,
+//     useCreateIndex: true,
+//     useFindAndModify: false,
+//     useUnifiedTopology: true
+//   })
+//   .then(con => {
+//     console.log(con.conections);
+//     console.log('connections succifuly created');
+//   });
+
+async function connect() {
+  try {
+    // console.log('kkkkk');
+    await mongoose.connect(dbstr, {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: true,
+      useUnifiedTopology: true
+    });
+    console.log('connections successfully created');
+  } catch (error) {
+    console.log(error);
+  }
+}
+connect();
 
 //read file
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
-const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
-const reviews = JSON.parse(
-  fs.readFileSync(`${__dirname}/reviews.json`, 'utf-8')
-);
+
+// const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
+// const reviews = JSON.parse(
+//   fs.readFileSync(`${__dirname}/reviews.json`, 'utf-8')
+// );
 
 //Import data into DB
 const importData = async () => {
   try {
     await Tour.create(tours);
-    await User.create(users, { validateBeforeSave: false });
-    await Review.create(reviews);
+    // await User.create(users, { validateBeforeSave: false });
+    // await Review.create(reviews);
     console.log('Data Imported');
   } catch (err) {
     console.log(err);

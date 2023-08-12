@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const path = require('path');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const expressMongoSanitize = require('express-mongo-sanitize');
@@ -13,6 +14,13 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+app.get('/', (req, res) => {
+  res.status(200).render('base', {
+    tour: 'll'
+  });
+});
 // app.get('/', (req, res) => {
 //   res.status(200).json({ message: 'hellow express', app: 'natours' });
 // });

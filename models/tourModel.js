@@ -38,6 +38,29 @@ const tourSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'tour must have duration ']
     },
+    startLocation: {
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point']
+      },
+      coordinates: [Number],
+      address: String,
+      description: String
+    },
+    locations: [
+      {
+        type: {
+          type: String,
+          default: 'Point',
+          enum: ['Point']
+        },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number
+      }
+    ],
     maxGroupSize: {
       type: Number,
       required: [true, 'tour must have groupSize ']
@@ -97,7 +120,9 @@ const tourSchema = new mongoose.Schema(
     toObject: { virtuals: true }
   }
 );
-
+//indexes
+tourSchema.index({ price: 1, ratingAverage: -1 });
+tourSchema.index({ startLocation: '2dsphere' });
 tourSchema.virtual('durationWeeks').get(function() {
   return this.duration / 7;
 });
